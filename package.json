@@ -1,0 +1,1 @@
+{"name":"geburtstag-elmar","version":"1.0.0","private":true,"type":"module","scripts":{"start":"node server.mjs","check":"node --check public/app.js && node --check server.mjs && node --check netlify/functions/api.mjs","test":"node --test tests/*.test.mjs"},"engines":{"node":">=20"},"dependencies":{"@netlify/blobs":"^10.5.0"}}

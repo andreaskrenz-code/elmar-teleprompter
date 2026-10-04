@@ -1,0 +1,490 @@
+@font-face{font-family:system;src:local('Segoe UI')}*{box-sizing:border-box}html{color-scheme:dark}body{margin:0;background:#111922;color:#f3f4f1;font:17px/1.5 system-ui,-apple-system,BlinkMacSystemFont,sans-serif}button,input,a{font:inherit}button,a,label.file-button{touch-action:manipulation}button,.quiet,.file-button{border:1px solid #40505d;background:#1b2834;color:#eff2f4;border-radius:9px;padding:12px 18px;cursor:pointer;text-decoration:none}button:hover,.quiet:hover,.file-button:hover{background:#2c3e4c}button:disabled{opacity:.38;cursor:default}button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #eabb75;outline-offset:4px}[hidden]{display:none!important}header{display:flex;align-items:center;justify-content:space-between;padding:25px 4vw;border-bottom:1px solid #2e3b46;gap:20px}.brand{display:flex;align-items:center;gap:15px;text-decoration:none;color:inherit;font-size:19px;font-weight:650}.brand small{display:block;font-size:11px;letter-spacing:3px;color:#a7b4bf;margin-top:3px}.monogram{font:43px Georgia,serif;color:#eabd7e;position:relative;padding-right:8px}.monogram span{position:absolute;font:12px system-ui;right:-3px;bottom:0;background:#111922}.header-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}#connection{font-size:14px;color:#c8d3db;margin-right:10px}.workspace{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:4vw;max-width:1450px;margin:0 auto;padding:36px 4vw 150px}.speech-panel{min-width:0}.section-meta{display:flex;align-items:center;justify-content:space-between;gap:12px;color:#eabd7e;font-size:13px;letter-spacing:2px}.text-size{display:flex;gap:8px}.text-size button{font-size:16px;padding:6px 13px}h1{font:normal clamp(30px,3.1vw,46px)/1.16 Georgia,serif;margin:18px 0 28px;letter-spacing:-.7px}#speech{font-size:var(--speech-size,32px);line-height:1.58;white-space:pre-wrap;max-width:920px;color:#f1f2ed}details{border-top:1px solid #34424d;margin-top:28px;padding-top:18px;color:#bdcbd5}summary{cursor:pointer;font-size:16px}#noteText{white-space:pre-wrap;font-size:17px}aside{border-left:1px solid #34424d;padding-left:26px}.preview-heading{display:flex;justify-content:space-between;align-items:center;gap:10px}.preview-heading h2{font-size:15px;font-weight:500}.preview-heading span{font-size:13px;color:#b6c4cf}.preview{aspect-ratio:16/9;background:#030507;border:1px solid #3b4854;border-radius:10px;overflow:hidden;display:grid;place-items:center}.preview img,.preview video{width:100%;height:100%;object-fit:contain}.empty-preview{color:#8795a0;font-size:14px;text-align:center}.preview.black>*{visibility:hidden}#mediaLabel{font-size:14px;color:#b6c4cf;overflow-wrap:anywhere}.media-buttons{display:flex;flex-direction:column;gap:10px}.media-buttons button,.blackout{font-size:15px;width:100%}.blackout{margin-top:12px;background:transparent}.blackout[aria-pressed=true]{border-color:#eabd7e;color:#eabd7e}.next-card{border-top:1px solid #34424d;margin-top:35px;padding-top:25px}.next-card small,.eyebrow{font-size:12px;letter-spacing:2px;color:#eabd7e}.next-card p{font-size:20px;margin:10px 0}.hint{color:#8e9da9;font-size:15px;margin-top:35px}footer{position:fixed;bottom:0;left:0;right:0;background:#15202b;border-top:1px solid #36434f;padding:20px 4vw;display:flex;align-items:center;gap:30px;z-index:2}.primary{background:#eabd7e;color:#1a2228;border-color:#eabd7e;font-weight:650}.primary:hover{background:#f5d29e}footer button{min-width:170px;font-size:21px;padding:17px 25px}.progress-wrap{flex:1;text-align:center;max-width:500px;margin:auto;color:#aebdc8;font-size:14px}progress{display:block;width:100%;height:4px;margin-top:10px;accent-color:#eabd7e}#settings{padding:25px 4vw;background:#1a2632;border-bottom:1px solid #465464}#settings h2{font:28px Georgia,serif;margin:0 0 24px}.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:5vw}.settings-grid p{font-size:15px;color:#b9c7d1}.settings-grid h3{font-size:18px;margin-top:0}.inline{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}input[type=password]{padding:12px;background:#111922;border:1px solid #61717e;border-radius:8px;color:white;max-width:100%}.file-button{display:inline-block;font-size:15px;margin:0 7px 10px 0}.file-button input{display:none}#addresses{overflow-wrap:anywhere;font-size:15px}#addresses a{color:#eabd7e}#notice{margin:16px 4vw;background:#523828;padding:15px;border:1px solid #b78b5c;border-radius:8px}#tv{position:fixed;inset:0;background:#000}#tvMedia{width:100%;height:100%;display:grid;place-items:center}#tvMedia img,#tvMedia video{width:100%;height:100%;object-fit:contain}#tvStart{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:#111922;padding:25px}#tvStart h1{margin-bottom:10px}#tvStart label{margin-top:25px;font-size:16px}#tvError{position:absolute;bottom:20px;left:20px;right:20px;background:#513b25;padding:14px;text-align:center}body.tv-mode{overflow:hidden}
+@media(min-width:1200px){.workspace{padding-top:42px}#speech{font-size:var(--speech-size,34px)}}@media(max-width:900px){header{padding:18px 24px}.header-actions{gap:8px}.header-actions .quiet, .header-actions button{font-size:14px;padding:9px}.workspace{grid-template-columns:minmax(0,1fr) 215px;gap:24px;padding:28px 24px 145px}aside{padding-left:18px}#speech{font-size:var(--speech-size,29px)}footer{padding:16px 24px}footer button{min-width:140px}.brand{font-size:16px}#connection{margin:0}}@media(max-width:650px){header{align-items:flex-start;flex-direction:column}.workspace{display:block;padding-bottom:130px}aside{border-left:0;border-top:1px solid #34424d;padding:20px 0 0;margin-top:30px}.preview{max-width:330px}.hint,.next-card{display:none}#speech{font-size:var(--speech-size,27px)}.settings-grid{grid-template-columns:1fr}.media-buttons{flex-direction:row;flex-wrap:wrap}footer{gap:10px;padding:14px}footer button{font-size:18px;min-width:105px;padding:15px}.progress-wrap{font-size:12px}.header-actions{width:100%}}
+
+/* Elmars reduzierte Live-Ansicht */
+body.live-mode{overflow:hidden;background:#0d141b}
+#live{position:fixed;inset:0;background:#0d141b;color:#f7f7f3}
+.live-login{min-height:100%;display:grid;place-items:center;padding:32px}
+.live-login-card{width:min(520px,100%);text-align:center;background:#15202b;border:1px solid #34424d;border-radius:18px;padding:38px}
+.live-login-card h1{margin:14px 0}.live-login-card p{color:#b9c7d1}.live-login-card input{width:100%;margin:10px 0 14px}.live-login-card button{width:100%;font-size:20px}
+#liveStage{height:100%;display:grid;grid-template-rows:minmax(150px,28vh) minmax(0,1fr) 104px;padding:22px 34px 20px;gap:18px;overflow:hidden}
+.live-preview-wrap{display:grid;place-items:center;min-height:0}.live-preview{height:100%;width:min(760px,78vw);background:#020304;border-radius:14px;overflow:hidden;display:grid;place-items:center;box-shadow:0 0 0 1px #293845}.live-preview img,.live-preview video{width:100%;height:100%;object-fit:contain}.live-preview .empty-preview{font-size:16px}
+.live-copy{min-height:0;overflow:hidden;display:flex;flex-direction:column;justify-content:center;max-width:1050px;width:100%;margin:0 auto}.live-kicker{display:flex;justify-content:space-between;align-items:center;color:#d8ab6e;font-size:13px;letter-spacing:2px}.live-kicker #liveStatus{font-size:15px;letter-spacing:0;color:#70c58f}.live-kicker #liveStatus.offline{color:#d88772}
+#liveTitle{font:normal clamp(30px,4.1vw,55px)/1.08 Georgia,serif;margin:8px 0 18px;color:#fff}
+#liveCue{white-space:pre-wrap;font-size:clamp(25px,3.1vw,42px);line-height:1.36;font-weight:560;letter-spacing:.1px;overflow:auto;min-height:0;padding-right:8px;scrollbar-width:none}#liveCue::-webkit-scrollbar{display:none}
+.live-controls{display:grid;grid-template-columns:1fr 1.55fr;gap:22px;max-width:1050px;width:100%;margin:0 auto}.live-controls button{height:100%;padding:0;border-radius:16px;font-size:48px;font-weight:700;background:#1b2834}.live-controls .primary{background:#eabd7e;color:#172027}
+@media(orientation:portrait){#liveStage{grid-template-rows:minmax(140px,24vh) minmax(0,1fr) 110px;padding:18px 20px}.live-preview{width:min(92vw,680px)}#liveCue{font-size:clamp(26px,5.2vw,42px)}#liveTitle{font-size:clamp(31px,7vw,50px)}}
+@media(max-height:650px) and (orientation:landscape){#liveStage{grid-template-columns:minmax(260px,34vw) 1fr;grid-template-rows:1fr 88px;gap:16px 26px;padding:18px 24px}.live-preview-wrap{grid-row:1}.live-preview{width:100%;height:min(100%,360px)}.live-copy{grid-column:2;grid-row:1}.live-controls{grid-column:1 / -1;grid-row:2;max-width:none}#liveTitle{font-size:clamp(28px,3.6vw,45px);margin-bottom:10px}#liveCue{font-size:clamp(23px,2.7vw,35px)}}
+
+/* V3.9: Live-Vorschau immer vollständig anzeigen – niemals beschneiden. */
+#livePreview img,
+#livePreview video {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain !important;
+  object-position: center center !important;
+}
+
+/* V3.10: Live-Bild garantiert vollstaendig sichtbar.
+   Keine Beschneidung: natuerliches Seitenverhaeltnis, nur verkleinern. */
+#livePreview {
+  width: min(760px, 82vw);
+  height: min(40vh, 430px);
+  min-height: 220px;
+}
+#livePreview img,
+#livePreview video {
+  width: auto !important;
+  height: auto !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+  display: block;
+}
+@media (orientation: portrait) {
+  #livePreview {
+    width: min(92vw, 680px);
+    height: min(34vh, 420px);
+    min-height: 180px;
+  }
+}
+
+/* V3.11: Live-Anzeige auf dem Tablet individuell anpassen. */
+#liveStage{
+  --live-preview-row:24vh;
+  --live-preview-width:66vw;
+  --live-image-col:36vw;
+  --live-cue-size:40px;
+  --live-title-size:43px;
+  grid-template-rows:minmax(105px,var(--live-preview-row)) minmax(0,1fr) 104px;
+  position:relative;
+}
+.live-size-tools{
+  position:absolute;
+  top:10px;
+  right:14px;
+  z-index:8;
+  display:grid;
+  grid-template-columns:auto 38px 38px auto 38px 38px;
+  align-items:center;
+  gap:6px;
+  padding:6px 8px;
+  border:1px solid #334451;
+  border-radius:12px;
+  background:rgba(13,20,27,.86);
+  color:#cbd5dc;
+  font-size:12px;
+  letter-spacing:.2px;
+  backdrop-filter:blur(5px);
+}
+.live-size-tools button{
+  width:38px;
+  height:34px;
+  min-width:0;
+  padding:0;
+  border-radius:9px;
+  font-size:24px;
+  line-height:1;
+  font-weight:700;
+}
+#liveTitle{font-size:var(--live-title-size)!important;line-height:1.08}
+#liveCue{font-size:var(--live-cue-size)!important;line-height:1.32}
+#livePreview{
+  width:min(760px,var(--live-preview-width));
+  height:100%;
+  min-height:0;
+  transition:width .14s ease,height .14s ease;
+}
+#livePreview img,#livePreview video{
+  width:auto!important;
+  height:auto!important;
+  max-width:100%!important;
+  max-height:100%!important;
+  object-fit:contain!important;
+  object-position:center center!important;
+}
+@media (orientation:portrait){
+  #liveStage{grid-template-rows:minmax(100px,var(--live-preview-row)) minmax(0,1fr) 110px}
+  #livePreview{width:min(92vw,var(--live-preview-width))}
+  .live-size-tools{top:8px;right:8px;grid-template-columns:auto 34px 34px auto 34px 34px;gap:4px;padding:5px 6px}
+  .live-size-tools button{width:34px;height:32px;font-size:22px}
+}
+@media (max-height:650px) and (orientation:landscape){
+  #liveStage{grid-template-columns:minmax(180px,var(--live-image-col)) 1fr;grid-template-rows:1fr 88px}
+  #livePreview{width:100%;height:min(100%,calc(var(--live-preview-row) * 1.8));max-height:none}
+  .live-size-tools{top:6px;right:8px}
+}
+
+
+/* V3.13: Echte proportionale Skalierung der kompletten Live-Bildvorschau.
+   Der Regler aendert die Breite des Rahmens; die Hoehe folgt automatisch 16:9.
+   Das Medium selbst bleibt immer vollstaendig sichtbar (contain). */
+#liveStage{
+  grid-template-rows:auto minmax(0,1fr) 104px !important;
+}
+.live-preview-wrap{
+  min-height:0;
+  overflow:visible;
+}
+#livePreview{
+  width:min(var(--live-preview-width), 94vw, 980px) !important;
+  height:auto !important;
+  min-height:0 !important;
+  aspect-ratio:16 / 9;
+  flex:none;
+  transition:width .14s ease !important;
+}
+#livePreview img,
+#livePreview video{
+  width:100% !important;
+  height:100% !important;
+  max-width:none !important;
+  max-height:none !important;
+  object-fit:contain !important;
+  object-position:center center !important;
+  display:block;
+}
+@media (orientation:portrait){
+  #liveStage{grid-template-rows:auto minmax(0,1fr) 110px !important;}
+  #livePreview{width:min(var(--live-preview-width),94vw,760px) !important;}
+}
+@media (max-height:650px) and (orientation:landscape){
+  #liveStage{
+    grid-template-columns:minmax(180px,var(--live-image-col)) 1fr;
+    grid-template-rows:1fr 88px !important;
+  }
+  #livePreview{
+    width:min(100%,var(--live-preview-width)) !important;
+    height:auto !important;
+    aspect-ratio:16 / 9;
+  }
+}
+
+/* V3.14: iPad-Pro-Liveansicht – kontinuierliche, gekoppelte Skalierung.
+   Die Vorschau hat kein erzwungenes 16:9-Seitenverhaeltnis mehr. Das Medium
+   bestimmt seine Hoehe selbst und bleibt dadurch immer vollstaendig sichtbar. */
+#liveStage{
+  --live-image-scale:1;
+  --live-cue-size:40px;
+  --live-title-size:43px;
+  grid-template-rows:auto minmax(0,1fr) 104px !important;
+  min-height:0;
+}
+.live-preview-wrap{
+  display:flex !important;
+  justify-content:center;
+  align-items:flex-start;
+  min-height:0;
+  overflow:visible !important;
+}
+#livePreview{
+  width:calc(min(760px, 86vw) * var(--live-image-scale)) !important;
+  max-width:96vw !important;
+  height:auto !important;
+  min-height:0 !important;
+  aspect-ratio:auto !important;
+  display:flex !important;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  flex:0 0 auto;
+  transition:width .12s ease !important;
+}
+#livePreview img,
+#livePreview video{
+  display:block !important;
+  width:100% !important;
+  height:auto !important;
+  max-width:100% !important;
+  max-height:none !important;
+  object-fit:contain !important;
+  object-position:center center !important;
+}
+#livePreview .empty-preview{
+  min-height:110px;
+  width:100%;
+  display:grid;
+  place-items:center;
+}
+#liveTitle{
+  font-size:var(--live-title-size) !important;
+  line-height:1.06;
+}
+#liveCue{
+  font-size:var(--live-cue-size) !important;
+  line-height:1.28;
+}
+.live-copy{
+  min-height:0 !important;
+  overflow:auto !important;
+  scrollbar-width:none;
+}
+.live-copy::-webkit-scrollbar{display:none}
+
+/* iPad Pro und andere Tablets im Querformat: Bild oben, Text nutzt automatisch
+   den frei werdenden Platz, Navigation bleibt unten erreichbar. */
+@media (min-width:768px) and (orientation:landscape){
+  #liveStage{
+    grid-template-columns:1fr !important;
+    grid-template-rows:auto minmax(0,1fr) 104px !important;
+    padding:18px 30px 18px !important;
+    gap:14px !important;
+  }
+  .live-preview-wrap{grid-column:1 !important;grid-row:1 !important;}
+  .live-copy{grid-column:1 !important;grid-row:2 !important;max-width:1120px !important;}
+  .live-controls{grid-column:1 !important;grid-row:3 !important;max-width:1120px !important;}
+  #livePreview{max-width:92vw !important;}
+}
+@media (orientation:portrait){
+  #liveStage{grid-template-rows:auto minmax(0,1fr) 110px !important;}
+  #livePreview{width:calc(min(680px,90vw) * var(--live-image-scale)) !important;max-width:94vw !important;}
+}
+
+
+/* V3.15: Im laufenden Betrieb zwischen Stichpunkten und Volltext wechseln. */
+.live-view-toggle{
+  position:absolute;
+  top:58px;
+  right:14px;
+  z-index:8;
+  display:flex;
+  gap:6px;
+  padding:5px;
+  border:1px solid #334451;
+  border-radius:12px;
+  background:rgba(13,20,27,.86);
+  backdrop-filter:blur(5px);
+}
+.live-view-toggle button{
+  min-height:42px;
+  min-width:112px;
+  padding:8px 12px;
+  border-radius:9px;
+  font-size:15px;
+  font-weight:700;
+  background:#1b2834;
+  color:#dbe4ea;
+  border:1px solid #40515e;
+}
+.live-view-toggle button.active{
+  background:#eabd7e;
+  color:#172027;
+  border-color:#eabd7e;
+}
+#liveStage.full-text #liveCue{
+  font-size:calc(var(--live-cue-size) * .72) !important;
+  line-height:1.34;
+  font-weight:500;
+  white-space:pre-wrap;
+  overflow:auto;
+  -webkit-overflow-scrolling:touch;
+  touch-action:pan-y;
+}
+#liveStage.full-text .live-copy{justify-content:flex-start;padding-top:6px}
+@media (orientation:portrait){
+  .live-view-toggle{top:54px;right:8px}
+  .live-view-toggle button{min-width:96px;font-size:14px}
+}
+@media (min-width:768px) and (orientation:landscape){
+  .live-view-toggle{top:58px;right:14px}
+}
+
+
+/* V3.18: Hell/Dunkel zuverlässig + Schalter in der oberen Werkzeugleiste. */
+.live-size-tools{
+  grid-template-columns:auto 38px 38px auto 38px 38px auto;
+}
+.live-size-tools .live-theme-toggle{
+  position:static;
+  width:auto;
+  min-width:58px;
+  height:34px;
+  min-height:34px;
+  margin-left:2px;
+  padding:0 10px;
+  border-radius:9px;
+  border:1px solid #40515e;
+  background:#1b2834;
+  color:#eef2f4;
+  font-size:13px;
+  line-height:1;
+  font-weight:700;
+  backdrop-filter:none;
+}
+
+body.live-mode.live-light,
+body.live-mode.live-light #live,
+body.live-mode.live-light #liveStage{
+  background:#fff !important;
+  color:#111 !important;
+  color-scheme:light;
+}
+body.live-mode.live-light #liveTitle,
+body.live-mode.live-light #liveCue{
+  color:#111 !important;
+}
+body.live-mode.live-light .live-kicker{color:#8b5d23 !important}
+body.live-mode.live-light .live-kicker #liveStatus{color:#238247 !important}
+body.live-mode.live-light .live-kicker #liveStatus.offline{color:#b33a2e !important}
+body.live-mode.live-light #livePreview{
+  background:#f4f4f4 !important;
+  box-shadow:0 0 0 1px #c7c7c7 !important;
+}
+body.live-mode.live-light #livePreview .empty-preview{color:#666 !important}
+body.live-mode.live-light .live-size-tools,
+body.live-mode.live-light .live-view-toggle{
+  background:rgba(255,255,255,.96) !important;
+  color:#222 !important;
+  border-color:#c9c9c9 !important;
+}
+body.live-mode.live-light .live-size-tools button,
+body.live-mode.live-light .live-view-toggle button{
+  background:#f1f1f1 !important;
+  color:#111 !important;
+  border-color:#c8c8c8 !important;
+}
+body.live-mode.live-light .live-view-toggle button.active{
+  background:#d9ab68 !important;
+  color:#111 !important;
+  border-color:#b9853d !important;
+}
+body.live-mode.live-light .live-controls button{
+  background:#eceff1 !important;
+  color:#111 !important;
+  border-color:#c5cbd0 !important;
+}
+body.live-mode.live-light .live-controls .primary{
+  background:#eabd7e !important;
+  color:#172027 !important;
+  border-color:#d2a766 !important;
+}
+body.live-mode.live-light .live-size-tools .live-theme-toggle{
+  background:#fff !important;
+  color:#111 !important;
+  border-color:#bdbdbd !important;
+}
+
+@media (orientation:portrait){
+  .live-size-tools{
+    grid-template-columns:auto 34px 34px auto 34px 34px auto;
+  }
+  .live-size-tools .live-theme-toggle{
+    min-width:52px;
+    height:32px;
+    min-height:32px;
+    padding:0 7px;
+    font-size:12px;
+  }
+}
+
+/* V3.22: Ruhige Live-Ansicht beim Bildwechsel.
+   Der Vorschau-Bereich behaelt bei einer gewaehlten Bildgroesse immer dieselben
+   Abmessungen. Unterschiedliche Foto-Seitenverhaeltnisse duerfen den Text nicht
+   mehr nach oben oder unten verschieben. */
+#livePreview{
+  width:calc(min(760px, 86vw) * var(--live-image-scale)) !important;
+  max-width:92vw !important;
+  height:auto !important;
+  aspect-ratio:16 / 9 !important;
+  display:grid !important;
+  place-items:center !important;
+  overflow:hidden !important;
+  flex:0 0 auto !important;
+  transition:width .12s ease !important;
+}
+#livePreview img,
+#livePreview video{
+  width:100% !important;
+  height:100% !important;
+  max-width:100% !important;
+  max-height:100% !important;
+  object-fit:contain !important;
+  object-position:center center !important;
+}
+#livePreview .empty-preview{
+  width:100% !important;
+  height:100% !important;
+  min-height:0 !important;
+}
+@media (orientation:portrait){
+  #livePreview{
+    width:calc(min(680px,90vw) * var(--live-image-scale)) !important;
+    max-width:94vw !important;
+    aspect-ratio:16 / 9 !important;
+  }
+}
+
+/* V3.23: Fester, nicht komprimierbarer Bildrahmen in der Live-Ansicht.
+   Unterschiedliche Bildformate veraendern die Position des Textes nicht.
+   Der Rahmen leitet seine Hoehe ausschliesslich aus seiner Breite (16:9) ab;
+   das Medium selbst wird immer vollstaendig mit contain eingepasst. */
+body.live-mode #liveStage{
+  grid-template-rows:max-content minmax(0,1fr) 104px !important;
+}
+body.live-mode .live-preview-wrap{
+  min-height:0 !important;
+  height:auto !important;
+  overflow:visible !important;
+  align-self:start !important;
+}
+body.live-mode #livePreview{
+  width:calc(min(760px, 86vw) * var(--live-image-scale)) !important;
+  max-width:92vw !important;
+  height:auto !important;
+  min-height:0 !important;
+  max-height:none !important;
+  aspect-ratio:16 / 9 !important;
+  flex:none !important;
+  align-self:start !important;
+  overflow:hidden !important;
+  display:grid !important;
+  place-items:center !important;
+}
+body.live-mode #livePreview > img,
+body.live-mode #livePreview > video{
+  width:100% !important;
+  height:100% !important;
+  min-width:0 !important;
+  min-height:0 !important;
+  max-width:100% !important;
+  max-height:100% !important;
+  object-fit:contain !important;
+  object-position:center center !important;
+  display:block !important;
+}
+@media (orientation:portrait){
+  body.live-mode #liveStage{
+    grid-template-rows:max-content minmax(0,1fr) 110px !important;
+  }
+  body.live-mode #livePreview{
+    width:calc(min(680px,90vw) * var(--live-image-scale)) !important;
+    max-width:94vw !important;
+    aspect-ratio:16 / 9 !important;
+  }
+}
+
+/* V3.24: Deutlicher Bildwechsel-Hinweis in Elmars Live-Text. */
+.live-image-marker{
+  display:block;
+  width:max-content;
+  max-width:100%;
+  margin:14px 0;
+  padding:9px 14px;
+  border:2px solid #eabd7e;
+  border-radius:12px;
+  background:rgba(234,189,126,.16);
+  color:#ffd79f;
+  font-size:.72em;
+  line-height:1.1;
+  font-weight:850;
+  letter-spacing:.04em;
+  white-space:normal;
+}
+body.live-mode.live-light .live-image-marker{
+  background:#fff1d8;
+  border-color:#9a641d;
+  color:#6d4310;
+}

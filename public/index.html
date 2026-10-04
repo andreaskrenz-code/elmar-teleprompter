@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#111922"><title>Geburtstag Elmar · Regie</title><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="/editor.css"><script type="module" src="/app.js"></script></head>
+<body>
+<main id="regie">
+  <header><a class="brand" href="/regie"><span class="monogram">E<span>60</span></span><span>Geburtstag Elmar<small>UNSERE ZEITREISE</small></span></a><div class="header-actions"><span id="connection" role="status">Verbinde …</span><a class="quiet" href="/tv" target="_blank" rel="noopener">TV öffnen ↗</a><button id="settingsButton" class="quiet" aria-expanded="false">Einrichten</button></div></header>
+  <section id="settings" hidden>
+    <h2>Alles bereit für den großen Abend</h2>
+    <div class="settings-grid"><div><label for="code">Regie-Code aus dem Startfenster</label><div class="inline"><input id="code" type="password" autocomplete="off" placeholder="Code eingeben"><button id="unlock">Verbinden</button></div><p>Nur die Regie braucht den Code. Der Fernseher zeigt ausschließlich eure Bilder.</p><div id="addresses"></div></div>
+    <div><h3>Rede & Bilder laden</h3><p>1. Den Ordner <strong>media</strong> auswählen.<br>2. Danach die zugehörige Rede-Datei laden.</p><label class="file-button">Medienordner auswählen<input id="mediaFiles" type="file" webkitdirectory multiple></label><label class="file-button">Rede laden (.json)<input id="deckFile" type="file" accept=".json,application/json"></label><button id="export" class="quiet">Aktuelle Rede speichern</button><p id="importStatus" role="status"></p><p>Ein Import beginnt beim ersten Abschnitt und ändert sofort die TV-Ansicht. Bitte vor dem Vortrag laden.</p></div></div>
+  </section>
+  <div id="notice" role="alert" hidden></div>
+  <nav class="mode-tabs" aria-label="Arbeitsmodus"><button id="presentMode" aria-pressed="true">Vortragen</button><button id="prepareMode" aria-pressed="false">Rede & Fotos vorbereiten</button></nav>
+  <section id="editor" hidden>
+    <div class="editor-top"><div><span class="eyebrow">SCHRITT FÜR SCHRITT</span><h2 id="editHeading">Diesen Abschnitt vorbereiten</h2></div><span id="savedStatus" role="status"></span></div>
+    <div class="edit-grid">
+      <div>
+        <label>Abschnittstitel<input id="editTitle"></label>
+        <div class="section-order-tools" aria-label="Abschnitt verschieben">
+          <div class="section-order-current"><strong id="sectionOrderStatus">Bereich —</strong><small>Der komplette Bereich inklusive Bilder wird verschoben.</small></div>
+          <div class="section-order-step"><button id="moveSectionUp" type="button" class="quiet">↑ Einen Bereich früher</button><button id="moveSectionDown" type="button" class="quiet">↓ Einen Bereich später</button></div>
+          <div class="section-order-jump">
+            <label for="moveSectionTarget">Diesen Bereich verschieben an:</label>
+            <select id="moveSectionTarget" aria-label="Zielbereich auswählen"></select>
+            <button id="moveSectionTo" type="button" class="quiet">Dorthin verschieben</button>
+          </div>
+        </div>
+        <label>Ausführliche Rede<textarea id="editText" rows="9"></textarea></label>
+        <div class="marker-tools"><button id="insertTextImageMarker" type="button" class="quiet marker-button">📷 Bildwechsel hier im Volltext einfügen</button><small>Cursor vorher an die gewünschte Stelle setzen.</small></div>
+        <label>Stichpunkte für Elmars Tablet<textarea id="editCue" rows="6" placeholder="• Gedanke 1
+• Name / Datum
+• Überleitung"></textarea></label>
+        <div class="marker-tools"><button id="insertCueImageMarker" type="button" class="quiet marker-button">📷 Bildwechsel hier bei Stichpunkten einfügen</button><small>Nur nötig, wenn Elmar in der Stichpunktansicht spricht.</small></div>
+        <label>Notiz für die Regie<textarea id="editNotes" rows="2"></textarea></label>
+      </div>
+      <div>
+        <h3>Bilder zu diesem Abschnitt</h3>
+        <p>Hier siehst Du nur die Bilder, die wirklich zu diesem Redeabschnitt gehören. Entfernte Bilder wandern automatisch zurück in den Vorrat.</p>
+        <div id="photoList" class="assigned-media" aria-live="polite"></div>
+        <label class="check slideshow-toggle"><input id="multiImageMode" type="checkbox"> Mehrere Bilder / Bildfolge zusammenstellen</label>
+        <div class="available-head"><div><h3>Noch verfügbare Bilder</h3><p id="galleryStatus" class="gallery-status"></p></div><button id="refreshMedia" class="quiet" type="button">Galerie aktualisieren</button></div>
+        <input id="mediaSearch" class="media-search" type="search" placeholder="Bildname suchen …" autocomplete="off">
+        <div id="mediaDropZone" class="media-drop-zone" tabindex="0"><strong>Bilder hier hineinziehen</strong><span>oder antippen und aus Dateien auswählen</span><input id="libraryPhotos" type="file" accept="image/jpeg,image/png,image/webp,image/gif" multiple></div>
+        <div id="mediaGallery" class="media-gallery" aria-live="polite"></div>
+        <label class="file-button compact-upload">Bilder aus Dateien hinzufügen<input id="sectionPhotos" type="file" accept="image/jpeg,image/png,image/webp,image/gif" multiple></label>
+        <label class="file-button">Video statt Fotos<input id="sectionVideo" type="file" accept="video/mp4,video/webm"></label>
+        <button id="removeVideo" class="quiet" hidden>Video entfernen</button>
+        <label class="file-button">Lied / Audio für Bildfolge<input id="sectionAudio" type="file" accept="audio/mpeg,audio/mp4,audio/x-m4a,audio/wav,audio/ogg,.mp3,.m4a,.wav,.ogg"></label>
+        <button id="removeAudio" class="quiet" hidden>Audio entfernen</button><p id="audioLabel" class="gallery-status"></p>
+        <label>Bildwechsel<select id="editMode"><option value="manual">Per Taste „Nächstes Bild“</option><option value="auto">Automatisch</option></select></label>
+        <label>Sekunden je Bild<input id="editDuration" type="number" min="1" max="3600" value="8"></label>
+        <label class="check"><input id="editLoop" type="checkbox"> Bildfolge / Video wiederholen</label>
+        <button id="saveSection" class="primary">Textänderungen speichern</button>
+        <p>Bilder werden beim Zuordnen, Entfernen und Sortieren automatisch gespeichert. Nur Text- und Stichpunktänderungen brauchen noch den Speicherknopf.</p>
+      </div>
+    </div>
+  </section>
+  <div class="workspace"><article class="speech-panel"><div class="section-meta"><span id="counter">ABSCHNITT —</span><div class="text-size"><button id="smaller" aria-label="Schrift verkleinern">A−</button><button id="larger" aria-label="Schrift vergrößern">A+</button></div></div><h1 id="sectionTitle">Einen Moment …</h1><div id="speech" tabindex="0"></div><details id="notes"><summary>Regienotiz</summary><p id="noteText"></p></details></article>
+  <aside><div class="preview-heading"><h2>Auf dem Fernseher</h2><span id="mediaCount"></span></div><div id="preview" class="preview"></div><p id="mediaLabel">Noch kein Bild zugeordnet</p><div class="media-buttons"><button id="nextImage" class="quiet">Nächstes Bild</button><button id="pause" class="quiet">Bildfolge pausieren</button></div><button id="blackout" class="blackout" aria-pressed="false">TV schwarz schalten</button><div class="next-card"><small>ALS NÄCHSTES</small><p id="nextTitle">—</p></div><p class="hint">Dein Tempo zählt.<br>Ein Klick, ein neuer Abschnitt.</p></aside></div>
+  <footer><button id="prev" class="previous">← Zurück</button><div class="progress-wrap"><span id="progressText">—</span><progress id="progress" max="1" value="0"></progress></div><button id="next" class="primary">Weiter →</button></footer>
+</main>
+
+<main id="live" hidden>
+  <section id="liveStage">
+    <div class="live-size-tools" aria-label="Anzeige anpassen">
+      <span>Bild</span><button id="liveImageSmaller" type="button" aria-label="Bildvorschau verkleinern">−</button><button id="liveImageLarger" type="button" aria-label="Bildvorschau vergrößern">+</button>
+      <span>Text</span><button id="liveTextSmaller" type="button" aria-label="Text verkleinern">−</button><button id="liveTextLarger" type="button" aria-label="Text vergrößern">+</button>
+      <button id="liveThemeToggle" class="live-theme-toggle" type="button" aria-pressed="false" aria-label="Zwischen dunkler und heller Darstellung wechseln">Hell</button>
+      </div>
+    <div class="live-view-toggle" aria-label="Textansicht">
+      <button id="liveShowCue" type="button" class="active" aria-pressed="true">Stichpunkte</button>
+      <button id="liveShowFull" type="button" aria-pressed="false">Volltext</button>
+    </div>
+    <div class="live-preview-wrap"><div id="livePreview" class="live-preview"></div></div>
+    <div class="live-copy"><div class="live-kicker"><span id="liveCounter">—</span><span id="liveMediaCounter"></span><span id="liveStatus" aria-label="Verbindungsstatus">●</span></div><h1 id="liveTitle">Einen Moment …</h1><div id="liveCue"></div></div>
+    <div class="live-controls"><button id="livePrev" aria-label="Vorheriger Abschnitt">←</button><button id="liveNext" class="primary" aria-label="Nächster Abschnitt">→</button></div>
+  </section>
+</main>
+<main id="tv" hidden><div id="tvMedia"></div><div id="tvAudioHost" aria-hidden="true"></div><div id="tvStart"><span class="eyebrow">GEBURTSTAG ELMAR</span><h1>Der Bildschirm ist bereit.</h1><p>Einmal aktivieren, dann übernimmt Elmars Tablet.</p><button id="activate" class="primary">Bildschirm aktivieren</button><label><input id="sound" type="checkbox"> Videos mit Ton abspielen</label></div><div id="tvError" hidden role="alert"></div></main>
+</body></html>

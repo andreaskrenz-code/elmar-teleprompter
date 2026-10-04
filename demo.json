@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "title": "Geburtstag Elmar · Probe",
+  "sections": [
+    {"id":"eroeffnung","title":"Willkommen, ihr Lieben","text":"Liebe Familie, liebe Freunde, liebe Gäste,\n\nwir freuen uns riesig, dass ihr heute alle hier seid.\n\nUnd wir haben heute gleich dreifachen Grund zum Feiern:\n\nWir sind beide 60 geworden – und seit zehn Jahren verheiratet.\n\nWenn das kein Grund für eine ordentliche Feier ist, wissen wir es auch nicht.\n\nBevor wir euch ein bisschen durch die vergangenen Jahre mitnehmen, gebe ich das Wort zunächst an Elfi.","notes":"Probeauszug aus der bisherigen Fassung. Hier später das aktuelle Bild von Elfi und Elmar zuordnen.","images":[],"mode":"manual","durationSeconds":8},
+    {"id":"elfi","title":"Elfi begrüßt ihre Familie","text":"Hier kommt Elfis persönliche Familienbegrüßung.\n\nUnd jetzt gebe ich wieder zurück an Elmar – schließlich müssen wir noch durch 60 Jahre kommen.","notes":"Platzhalter: Elfis endgültigen Text später ergänzen.","images":[],"mode":"manual"},
+    {"id":"eltern","title":"Am Anfang unserer Geschichte","text":"Vielen Dank, Elfi.\n\nBevor wir zu unseren weiteren Gästen kommen, möchte ich natürlich zuerst meine Familie begrüßen.\n\nUnd wenn man auf 60 Jahre zurückblickt, gehören zwei Menschen ganz an den Anfang dieser Geschichte:\n\nmeine Eltern Ferdinand und Maria.\n\nLeider sind beide bereits 1990 viel zu früh verstorben.\n\nAber natürlich gehören sie heute trotzdem zu diesem Abend und zu meinen Erinnerungen.","notes":"Zeit lassen. Hier später das Foto von Ferdinand und Maria einsetzen.","images":[],"mode":"manual"},
+    {"id":"weiter","title":"Bereit für eure Geschichte","text":"Hier geht die endgültige Rede weiter.\n\nDie Probe endet an dieser Stelle.","notes":"Die vollständige Rede und die Zuordnung aus dem Bildsortierer werden später importiert. Ohne zugewiesene Medien bleibt der TV schwarz.","images":[],"mode":"manual"}
+  ]
+}
