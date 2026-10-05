@@ -36,10 +36,10 @@ export function makeHandler(storeFactory=getStore,env=process.env){return async(
   if(route==='/api/live-action'&&req.method==='POST'){
    const input=await req.json(),record=structuredClone(entry.data),state=record.state;
    if(typeof input.id!=='string'||input.id.length>100)throw Error('Aktionskennung fehlt.');
-   if(!['next','prev'].includes(input.action))return json({error:'In Elmars Live-Ansicht sind nur Vor und Zurück erlaubt.'},403);
+   if(!['next','prev','start'].includes(input.action))return json({error:'In Elmars Live-Ansicht sind nur Vor, Zurück und Anfang erlaubt.'},403);
    if(record.seen.includes(input.id))return json(snapshot(record));
    if(input.epoch!==state.epoch||input.revision!==state.revision)return json({error:'Stand geändert. Bitte erneut drücken.',...snapshot(record)},409);
-   const s=record.deck.sections[state.index],shown=snapshot(record).state.image;if(input.action==='next'&&s.mode==='manual'&&s.images.length>1&&shown<s.images.length-1){state.image=shown+1;state.startedAt=Date.now();}else if(input.action==='prev'&&s.mode==='manual'&&s.images.length>1&&shown>0){state.image=shown-1;state.startedAt=Date.now();}else{state.index=Math.max(0,Math.min(record.deck.sections.length-1,state.index+(input.action==='next'?1:-1)));state.image=input.action==='prev'?Math.max(0,record.deck.sections[state.index].images.length-1):0;state.paused=false;state.startedAt=Date.now();}state.revision++;
+   if(input.action==='start'){state.index=0;state.image=0;state.paused=false;state.startedAt=Date.now();}else{const s=record.deck.sections[state.index],shown=snapshot(record).state.image;if(input.action==='next'&&s.mode==='manual'&&s.images.length>1&&shown<s.images.length-1){state.image=shown+1;state.startedAt=Date.now();}else if(input.action==='prev'&&s.mode==='manual'&&s.images.length>1&&shown>0){state.image=shown-1;state.startedAt=Date.now();}else{state.index=Math.max(0,Math.min(record.deck.sections.length-1,state.index+(input.action==='next'?1:-1)));state.image=input.action==='prev'?Math.max(0,record.deck.sections[state.index].images.length-1):0;state.paused=false;state.startedAt=Date.now();}}state.revision++;
    record.seen.push(input.id);record.seen=record.seen.slice(-100);
    const result=await store.setJSON('presentation',record,{onlyIfMatch:entry.etag});
    if(!result.modified)return json({error:'Ein anderes Gerät hat inzwischen geändert. Bitte erneut drücken.'},409);

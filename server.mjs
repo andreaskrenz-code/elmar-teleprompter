@@ -59,13 +59,17 @@ export async function createApp({dataDir=path.join(ROOT,'data'),port=3210,host='
         const data=JSON.parse((await body(req,16*1024)).toString('utf8'));
         const task=async()=>{
           if(typeof data.id!=='string'||data.id.length>100)throw Error('Aktionskennung fehlt.');
-          if(!['next','prev'].includes(data.action))return json(res,403,{error:'In Elmars Live-Ansicht sind nur Vor und Zurück erlaubt.'});
+          if(!['next','prev','start'].includes(data.action))return json(res,403,{error:'In Elmars Live-Ansicht sind nur Vor, Zurück und Anfang erlaubt.'});
           if(seen.has(data.id))return json(res,200,snapshot());
           if(data.epoch!==state.epoch||data.revision!==state.revision)return json(res,409,{error:'Der Stand hat sich geändert. Bitte erneut drücken.',...snapshot()});
-          const s=deck.sections[state.index],shown=snapshot().state.image;
-          if(data.action==='next'&&s.mode==='manual'&&s.images.length>1&&shown<s.images.length-1){state.image=shown+1;state.startedAt=Date.now();}
-          else if(data.action==='prev'&&s.mode==='manual'&&s.images.length>1&&shown>0){state.image=shown-1;state.startedAt=Date.now();}
-          else {state.index=Math.max(0,Math.min(deck.sections.length-1,state.index+(data.action==='next'?1:-1)));state.image=data.action==='prev'?Math.max(0,deck.sections[state.index].images.length-1):0;state.paused=false;state.startedAt=Date.now();}
+          if(data.action==='start'){
+            state.index=0;state.image=0;state.paused=false;state.startedAt=Date.now();
+          }else{
+            const s=deck.sections[state.index],shown=snapshot().state.image;
+            if(data.action==='next'&&s.mode==='manual'&&s.images.length>1&&shown<s.images.length-1){state.image=shown+1;state.startedAt=Date.now();}
+            else if(data.action==='prev'&&s.mode==='manual'&&s.images.length>1&&shown>0){state.image=shown-1;state.startedAt=Date.now();}
+            else {state.index=Math.max(0,Math.min(deck.sections.length-1,state.index+(data.action==='next'?1:-1)));state.image=data.action==='prev'?Math.max(0,deck.sections[state.index].images.length-1):0;state.paused=false;state.startedAt=Date.now();}
+          }
           state.revision++;
           seen.add(data.id);if(seen.size>2000)seen.delete(seen.values().next().value);
           await atomic(path.join(dataDir,'position.json'),JSON.stringify({index:state.index}));json(res,200,snapshot());

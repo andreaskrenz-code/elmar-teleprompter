@@ -8,7 +8,7 @@ const note=message=>{$('notice').textContent=message;$('notice').hidden=!message
 const uploadStatus=document.createElement('p');uploadStatus.setAttribute('role','status');$('photoList').before(uploadStatus);
 new MutationObserver(()=>{uploadStatus.textContent=$('savedStatus').textContent;}).observe($('savedStatus'),{childList:true,characterData:true,subtree:true});
 function controls(){for(const id of ['next','prev','nextImage','pause','blackout','saveSection','prepareMode','presentMode','moveSectionUp','moveSectionDown','moveSectionTo'])$(id).disabled=busy||!online||!current;
- for(const id of ['liveNext','livePrev'])$(id).disabled=busy||!online||!current;
+ for(const id of ['liveNext','livePrev','liveStart'])$(id).disabled=busy||!online||!current;
  for(const id of ['sectionPhotos','sectionVideo','sectionAudio','deckFile','mediaFiles'])$(id).disabled=busy;
  if(current){const s=current.deck.sections[current.state.index],shown=current.state.image;$('prev').disabled||=current.state.index===0;$('next').disabled||=current.state.index===current.deck.sections.length-1;$('livePrev').disabled||=current.state.index===0&&!(s.mode==='manual'&&s.images.length>1&&shown>0);$('liveNext').disabled||=current.state.index===current.deck.sections.length-1&&!(s.mode==='manual'&&s.images.length>1&&shown<s.images.length-1);$('nextImage').disabled||=s.images.length<2;$('pause').disabled||=s.mode!=='auto'||s.images.length<2;$('moveSectionUp').disabled||=current.state.index===0;$('moveSectionDown').disabled||=current.state.index===current.deck.sections.length-1;}}
 async function request(url,options={}){const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),60000);try{const response=await fetch(url,{...options,cache:'no-store',signal:controller.signal,headers:{'x-regie-code':code,...options.headers}});const data=await readResponse(response);if(!response.ok){if(data.deck)accept(data);throw Error(data.error||'Verbindung nicht möglich.');}return data;}catch(e){if(e.name==='AbortError')throw Error('Die Übertragung dauert zu lange. Bitte Verbindung prüfen und die Datei erneut auswählen.');if(e instanceof TypeError)throw Error('Die Verbindung ist abgebrochen. Bitte Verbindung prüfen und erneut versuchen.');throw e;}finally{clearTimeout(timer);}}
@@ -40,6 +40,13 @@ async function action(action){if(busy||!current||!online)return;if(dirty&&['next
  if(['next','prev'].includes(action))dirty=false;busy=true;controls();note('');try{accept(await request(live?'/api/live-action':'/api/action',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:globalThis.crypto?.randomUUID?crypto.randomUUID():`${Date.now()}-${Math.random()}`,action,revision:current.state.revision,epoch:current.state.epoch})}));if(prepare)loadDraft();}catch(e){note(e.message+' Es wird kein weiterer Schritt automatisch ausgelöst.');}finally{busy=false;controls();}}
 for(const [id,name] of Object.entries({next:'next',prev:'prev',nextImage:'image',pause:'pause',blackout:'blackout'}))$(id).onclick=()=>action(name);
 $('liveNext').onclick=()=>action('next');$('livePrev').onclick=()=>action('prev');
+$('liveStart').onclick=async()=>{
+ if(!current||!online||busy)return;
+ if(!confirm('Wirklich zum Anfang der Präsentation zurückspringen?'))return;
+ await action('start');
+ const box=$('liveCue');if(box)box.scrollTop=0;
+ window.scrollTo({top:0,behavior:'smooth'});
+};
 const IMAGE_MARKER='[📷 BILDWECHSEL]';
 function renderTextWithImageMarkers(box,value){
  const parts=String(value).split(IMAGE_MARKER);
